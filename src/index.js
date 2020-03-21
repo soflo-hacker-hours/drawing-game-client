@@ -1,7 +1,7 @@
-  import React from 'react'
-  import { render } from 'react-dom'
-  import App from './components/App'
+import React from 'react'
+import { render } from 'react-dom'
+import Home from './components/Home'
 
-  const rootElement = document.getElementById('react-app')
+const rootElement = document.getElementById('app')
 
-  render(<App />, rootElement)
+render(<Home />, rootElement)

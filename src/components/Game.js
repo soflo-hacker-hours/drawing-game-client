@@ -1,13 +1,12 @@
 import React from 'react'
 import queryString from 'query-string'
-import Home from './Home'
 import Canvas from './Canvas'
 
-const Game = ({ location: { search } }) => {
-  const queryParams = queryString.parse(search)
+const Game = () => {
+  const queryParams = queryString.parse(window.location.search)
 
   if (!queryParams.id) {
-    return <Home />
+    return null
   }
 
   return <Canvas />
