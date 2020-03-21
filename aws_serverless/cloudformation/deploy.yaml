@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  Stage:
+    Type: String
+    Description: Name the stage if not staging.
+    Default: 'staging'
+  UniqueName:
+    Type: String
+    Description: Globally unique name mostly for S3; update this for each stack
+    Default: 'drawinggame83960ff7b9404fe2a899e05a0da82fc2'
+
+Globals:
+  Function:
+    Runtime: python3.7
+    Handler: index.handler
+    Timeout: 5
+    MemorySize: 128
+    Environment:
+      Variables:
+        AWSDYNAMODB: !Ref Database
+        AWSS3: !Ref FileStore
+
+Resources:
+
+  Database:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${UniqueName}${Stage}"
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+      AttributeDefinitions:
+        - AttributeName: 'PK'
+          AttributeType: 'S'
+        - AttributeName: 'SK'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'PK'
+          KeyType: 'HASH'
+        - AttributeName: 'SK'
+          KeyType: 'RANGE'
+      GlobalSecondaryIndexes:
+        - IndexName: 'SK-PK-index'
+          KeySchema:
+            - AttributeName: 'SK'
+              KeyType: 'HASH'
+            - AttributeName: 'PK'
+              KeyType: 'RANGE'
+          Projection:
+            ProjectionType: 'KEYS_ONLY'
+
+  FileStore:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${UniqueName}${Stage}"
+
+  StackRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: '/${UniqueName}${Stage}/'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: !Sub "${UniqueName}${Stage}"
+          PolicyDocument: {
+            "Version": "2012-10-17",
+            "Statement": [{
+              "Effect": "Allow",
+              "Action": [ 
+                "dynamodb:BatchGetItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:GetItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:UpdateItem",
+                "dynamodb:GetRecords"
+              ],
+              "Resource": { "Fn::GetAtt": ["Database", "Arn" ] }
+            },{
+              "Effect": "Allow",
+              "Action": [ 
+                "dynamodb:Query"
+              ],
+              "Resource": { "Fn::Sub": "${Database.Arn}/index/SK-PK-index" }
+            },{
+              "Effect": "Allow",
+              "Action": [ 
+                "s3:ListBucketByTags",
+                "s3:ListBucketMultipartUploads",
+                "s3:GetBucketTagging",
+                "s3:GetBucketWebsite",
+                "s3:ListBucket",
+                "s3:ListMultipartUploadParts",
+                "s3:GetObjectAcl",
+                "s3:GetObject",
+                "s3:GetBucketCORS",
+                "s3:GetObjectTagging"
+              ],
+              "Resource": [
+                { "Fn::Sub": "${FileStore.Arn}" },
+                { "Fn::Sub": "${FileStore.Arn}/*" }
+              ]
+            }]
+          }
+
+  PythonDepsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: PythonDeps
+      Description: Lambda stack Python dependencies
+      ContentUri: ../lambda/PythonDeps
+      CompatibleRuntimes:
+        - python3.7
+      RetentionPolicy: Retain
+
+  v1GameState:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt StackRole.Arn
+      CodeUri: ../lambda/v1GameState
+      Description: "Get/Post State"
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Database
+      Layers:
+        - !Ref PythonDepsLayer
+      Events:
+        Endpoint:
+          Type: Api
+          Properties:
+            Path: /v1_{uuid+}
+            Method: any
