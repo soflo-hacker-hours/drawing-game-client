@@ -1,8 +1,9 @@
+import os
 import sys
 
-# Globally unique name.
-# Should match cloudformation/deploy.py
-default_site = 'drawinggame83960ff7b9404fe2a899e05a0da82fc2'
+default_site = os.environ["DRAWINGGAMESITE"]
+if not default_site:
+    raise Exception('Environment variable DRAGINGGAMESITE must be set.')
 
 def get_stage(default='staging'):
     stage = default

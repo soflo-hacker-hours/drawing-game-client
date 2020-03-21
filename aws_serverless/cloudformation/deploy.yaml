@@ -9,7 +9,6 @@ Parameters:
   UniqueName:
     Type: String
     Description: Globally unique name mostly for S3; update this for each stack
-    Default: 'drawinggame83960ff7b9404fe2a899e05a0da82fc2'
 
 Globals:
   Function:
@@ -59,7 +58,7 @@ Resources:
   StackRole:
     Type: AWS::IAM::Role
     Properties:
-      Path: '/${UniqueName}${Stage}/'
+      Path: !Sub "/role${UniqueName}${Stage}/"
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -70,7 +69,7 @@ Resources:
             Action:
               - 'sts:AssumeRole'
       Policies:
-        - PolicyName: !Sub "${UniqueName}${Stage}"
+        - PolicyName: !Sub "Policy${UniqueName}${Stage}"
           PolicyDocument: {
             "Version": "2012-10-17",
             "Statement": [{
@@ -139,5 +138,5 @@ Resources:
         Endpoint:
           Type: Api
           Properties:
-            Path: /v1_{uuid+}
+            Path: /{uuid+}
             Method: any
