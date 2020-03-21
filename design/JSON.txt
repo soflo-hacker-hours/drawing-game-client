@@ -1,0 +1,159 @@
+===
+
+If new game, first player is host.
+
+GET /Prod/<UUID>
+
+server responds 200:
+{
+  "players": []
+}
++cookie
+
+Host player sees this response.
+
+===
+
+Lobby mode. Other players.
+
+GET /Prod/<UUID>
+server responds 200:
+{
+  "name": ""
+}
++cookie
+
+This indicates to please submit your player name.
+
+===
+
+Player submits name.
+
+POST /Prod/<UUID>
+{
+  "name": <player's entered name>
+}
+
+server responds 200: { }
+
+=
+
+If player has submitted name and game has not begun:
+
+GET /Prod/<UUID>
+
+server responds 200: { }
+
+===
+
+Caption round. (Write text)
+
+Indicator:
+
+GET /Prod/<UUID>
+
+server responds 200:
+{
+  "image": "<ASCII encoded image>" or ""
+}
+
+Player should:
+
+POST /Prod/<UUID>
+{
+  "caption": "<text>"
+}
+
+server responds 200: { }
+
+=
+
+If player has submitted for this round and next round has not begun:
+
+GET /Prod/<UUID>
+
+server responds 200: { }
+
+===
+
+Image round. (Draw picture)
+
+Indicator:
+
+GET /Prod/<UUID>
+
+server responds 200:
+{
+  "caption": "text"
+}
+
+Player should:
+
+POST /Prod/<UUID>
+{
+  "image": "<ASCII encoded image>"
+}
+
+server responds 200: { }
+
+=
+
+If player has submitted for this round and next round has not begun:
+
+GET /Prod/<UUID>
+
+server responds 200: { }
+
+===
+
+Ending the game.
+
+During the final round submission, each player should submit `"last round": 1` with their content.
+
+POST /Prod/<UUID>
+{
+  "image": "<ASCII encoded image>",
+  "last round": 1
+}
+
+OR
+
+POST /Prod/<UUID>
+{
+  "caption": "<text>",
+  "last round": 1
+}
+
+server responds 200: { }
+
+===
+
+Game state.
+
+This is sent to spectators during gameplay and to all players after game ends.
+
+GET /Prod/<UUID>
+
+server responds 200:
+{
+  "players": [
+    {
+      "revisions": [
+        {
+          "name": <starting player's name>,
+          "caption": "text"
+        },
+        {
+          "name": <next player's name>,
+          "image": "ASCII encoded image"
+        },
+        // ... more entries for each player who iterated this series
+      ]
+    },
+    // ... more cycles for each player's starting phrase
+  ]
+}
+
+If there are N players and they play M rounds, expect N objects in `obj.players` and M objects in `obj.players[x].revisions`.
+
+===
