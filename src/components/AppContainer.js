@@ -10,6 +10,11 @@ const StyledDiv = styled.div`
   padding: 0px;
   display: flex;
   flex-direction: column;
+
+  * {
+    font-family: 'Fredoka One', cursive;
+    user-select: none;
+  }
 `
 
 const AppContainer = ({ children }) => {

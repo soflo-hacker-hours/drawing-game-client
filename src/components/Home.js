@@ -1,22 +1,19 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import { css, cx } from 'emotion'
 import AppContainer from './AppContainer'
+import AppBody from './AppBody'
 import { v4 as uuidv4 } from 'uuid'
-
-const StyledDiv = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
 
 const Home = () => {
   const gameId = uuidv4()
 
   return (
     <AppContainer>
-      <StyledDiv>
+      <AppBody className={css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `}>
         <a href={`/game.html?id=${gameId}`} className={css`
           background: #228DFF;
           border: none;
@@ -40,7 +37,7 @@ const Home = () => {
         `}>
           New Game Who Dis
         </a>
-      </StyledDiv>
+      </AppBody>
     </AppContainer>
   )
 }

@@ -1,15 +1,21 @@
 import React from 'react'
 import queryString from 'query-string'
-import Canvas from './Canvas'
+import LoadingScene from './LoadingScene'
+import useGame, { scenes } from '../hooks/useGame'
 
 const Game = () => {
-  const queryParams = queryString.parse(window.location.search)
+  const { id } = queryString.parse(window.location.search)
+  const { state, actions } = useGame(id)
 
-  if (!queryParams.id) {
-    return null
+  let renderBody = null
+
+  switch (state.scene) {
+    case scenes.loading:
+      renderBody = <LoadingScene />
+      break
   }
 
-  return <Canvas />
+  return renderBody
 }
 
 export default Game

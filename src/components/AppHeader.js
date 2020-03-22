@@ -11,7 +11,6 @@ const StyledHeader = styled.header`
 const StyledH1 = styled.h1`
   line-height: 100px;
   font-size: 50px;
-  font-family: 'Fredoka One', cursive;
   color: #fff;
   animation-name: neon;
   animation-duration: 1s;

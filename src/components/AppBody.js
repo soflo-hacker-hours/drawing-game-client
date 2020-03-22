@@ -5,9 +5,9 @@ const StyledDiv = styled.div`
   height: 100%;
 `
 
-const AppBody = ({ children }) => {
+const AppBody = ({ children, ...props }) => {
   return (
-    <StyledDiv>
+    <StyledDiv {...props}>
       {children}
     </StyledDiv>
   )
