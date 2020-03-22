@@ -14,6 +14,10 @@ const StyledDiv = styled.div`
   * {
     font-family: 'Fredoka One', cursive;
     user-select: none;
+
+    &:focus {
+      outline: none;
+    }
   }
 `
 

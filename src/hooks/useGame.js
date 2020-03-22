@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { debug } from '../services/api'
 
 const scenes = {
   loading: 'LOADING',
+  join: 'JOIN',
   noGame: 'NO_GAME',
   lobby: 'LOBBY',
   captionRound: 'CAPTION_ROUND',
@@ -17,6 +19,25 @@ const useGameState = (id, player) => {
     isHost: false,
     players: [],
   })
+
+  useEffect(() => {
+    const getInitialState = async () => {
+      const state = await debug('JOIN_GAME_PROMPT')
+      if (state.hasOwnProperty('name')) {
+        setGameState({
+          ...gameState,
+          scene: scenes.join,
+        })
+      } else if (state.players) {
+        setGameState({
+          ...gameState,
+          scene: scenes.lobby,
+        })
+      }
+    }
+
+    getInitialState()
+  }, [])
 
   return {
     state: gameState,
@@ -37,7 +58,19 @@ const useGameState = (id, player) => {
 
         return gameState
       },
-      createNewPlayer: () => {},
+      createNewPlayer: async () => {
+        setGameState({
+          ...gameState,
+          scene: scenes.loading,
+        })
+
+        const joinResponse = await debug('DID_JOIN_GAME')
+
+        setGameState({
+          ...gameState,
+          scene: scenes.lobby,
+        })
+      },
       setPlayers: players => {
         setGameState({
           ...gameState,
