@@ -1,7 +1,7 @@
 import React from 'react'
 import Heading from './Heading'
 
-export default { title: 'Heading' }
+export default { title: 'Reusable/Heading' }
 
 export const H1 = () => <Heading level={1}>This is an h1 heading</Heading>
 

@@ -4,6 +4,7 @@ const colors = {
   gameYellow: '#ffcb00',
   gameOrange: '#f8aa4b',
   gameRed: '#ff6150',
+  gray: '#5f5f5f',
   white: '#ffffff',
   black: '#000000',
 }
