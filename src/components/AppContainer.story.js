@@ -3,4 +3,10 @@ import AppContainer from './AppContainer'
 
 export default { title: 'Components/App Container' }
 
-export const Default = () => <AppContainer></AppContainer>
+export const Default = () => (
+  <div style={{height: '100vh'}}>
+    <AppContainer>
+      <div style={{ height: '100%', backgroundColor: '#aaa' }}></div>
+    </AppContainer>
+  </div>
+)

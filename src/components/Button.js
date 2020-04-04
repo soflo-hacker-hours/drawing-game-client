@@ -1,10 +1,27 @@
 import React from 'react'
 import { css } from 'emotion'
 import styled from '@emotion/styled'
+import { colors } from '../theme'
 
 const StyledButton = styled.button`
   border: none;
   background: none;
+  background-color: ${colors.gameAqua};
+  color: ${colors.white};
+  border: none;
+  border-radius: 4px;
+  padding: ${({ size }) => {
+    switch (size) {
+      case 'small':
+        return '4px 8px'
+      case 'large':
+        return '12px 16px'
+      case 'medium':
+      default:
+        return '8px 12px'
+    }
+  }};
+  cursor: pointer;
   font-weight: normal;
   font-size: ${props => {
     let fontSize
@@ -24,6 +41,10 @@ const StyledButton = styled.button`
 
     return fontSize
   }}px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `
 
 const Button = ({ size, children, ...props }) => {
