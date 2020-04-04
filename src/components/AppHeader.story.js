@@ -1,6 +1,6 @@
 import React from 'react'
 import AppHeader from './AppHeader'
 
-export default { title: 'Reusable/App Header' }
+export default { title: 'Components/App Header' }
 
 export const Default = () => <AppHeader />

@@ -1,7 +1,7 @@
 import React from 'react'
 import AppTitle from './AppTitle'
 
-export default { title: 'Reusable/App Title' }
+export default { title: 'Components/App Title', component: AppTitle }
 
 export const Default = () => (
   <div>
