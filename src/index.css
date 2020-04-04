@@ -8,6 +8,15 @@ html, body {
   height: 100%;
 }
 
+* {
+  font-family: 'Fredoka One', cursive;
+  user-select: none;
+}
+
+*:focus {
+  outline: none;
+}
+
 @-webkit-keyframes neon {
   from {
     text-shadow: 0 0 0px #fff;

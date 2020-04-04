@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import AppHeader from './AppHeader'
 import AppBody from './AppBody'
-import '../main.css'
+import '../index.css'
 
 const StyledDiv = styled.div`
   height: 100%;
@@ -10,15 +10,6 @@ const StyledDiv = styled.div`
   padding: 0px;
   display: flex;
   flex-direction: column;
-
-  * {
-    font-family: 'Fredoka One', cursive;
-    user-select: none;
-
-    &:focus {
-      outline: none;
-    }
-  }
 `
 
 const AppContainer = ({ children }) => {

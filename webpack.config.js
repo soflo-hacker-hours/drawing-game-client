@@ -2,8 +2,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   entry: {
-    index: './src/index.js',
-    game: './src/game.js',
+    main: './src/pages/main/main.js',
+    game: './src/pages/game/game.js',
   },
   module: {
     rules: [
@@ -30,12 +30,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './src/index.html',
-      chunks: ['index'],
+      template: './src/pages/main/main.html',
+      chunks: ['main'],
       filename: './index.html',
     }),
     new HtmlWebPackPlugin({
-      template: './src/game.html',
+      template: './src/pages/game/game.html',
       chunks: ['game'],
       filename: './game.html',
     }),

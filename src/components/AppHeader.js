@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import AppTitle from './AppTitle'
 
 const StyledHeader = styled.header`
   flex: 0;
@@ -8,20 +9,10 @@ const StyledHeader = styled.header`
   padding: 0px 28px;
 `
 
-const StyledH1 = styled.h1`
-  line-height: 100px;
-  font-size: 50px;
-  color: #fff;
-  animation-name: neon;
-  animation-duration: 1s;
-  animation-timing-function: ease-in;
-  text-shadow: 0 0 5px #88DFFF, 0 0 20px #228DFF, 0 0 35px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF, 0 0 60px #228DFF;
-`
-
 const AppHeader = () => {
   return (
     <StyledHeader>
-      <StyledH1>Drawing Game</StyledH1>
+      <AppTitle label="Drawing Game" />
     </StyledHeader>
   )
 }
