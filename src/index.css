@@ -2,19 +2,16 @@
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
-}
-
-html, body {
-  height: 100%;
-}
-
-* {
   font-family: 'Fredoka One', cursive;
   user-select: none;
 }
 
 *:focus {
   outline: none;
+}
+
+html, body {
+  height: 100%;
 }
 
 @-webkit-keyframes neon {

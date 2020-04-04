@@ -1,21 +1,25 @@
 import React from 'react'
+import { css } from 'emotion'
 import styled from '@emotion/styled'
 
-const StyledH1 = styled.h1`
+const StyledHeading = () => css`
+  font-weight: normal;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeLegibility;
+`
+
+const StyledH1 = styled.h1`
+  ${StyledHeading}
   font-size: 28px;
 `
 
 const StyledH2 = styled.h2`
-  -webkit-font-smoothing: subpixel-antialiased;
-  text-rendering: optimizeLegibility;
+  ${StyledHeading}
   font-size: 22px;
 `
 
 const StyledH3 = styled.h3`
-  -webkit-font-smoothing: subpixel-antialiased;
-  text-rendering: optimizeLegibility;
+  ${StyledHeading}
   font-size: 16px;
 `
 
