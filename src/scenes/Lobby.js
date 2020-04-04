@@ -1,8 +1,9 @@
 import React from 'react'
+import AppBody from '../components/AppBody'
 
 const Lobby = () => {
   return (
-    <div>lobby</div>
+    <AppBody></AppBody>
   )
 }
 

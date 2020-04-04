@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from 'emotion'
-import AppBody from './AppBody'
+import AppBody from '../components/AppBody'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
