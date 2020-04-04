@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Heading from './Heading'
 
-const StyledH1 = styled.h1`
+const StyledH1 = styled(Heading)`
   line-height: 100px;
   font-size: 50px;
   color: #fff;

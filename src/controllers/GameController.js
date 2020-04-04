@@ -1,10 +1,10 @@
 import React from 'react'
 import queryString from 'query-string'
-import LoadingScene from './LoadingScene'
-import JoinScene from './JoinScene'
+import LoadingScene from '../components/LoadingScene'
+import JoinScene from '../components/JoinScene'
 import useGame, { scenes } from '../hooks/useGame'
 
-const Game = () => {
+const GameController = () => {
   const { id } = queryString.parse(window.location.search)
   const { state, actions } = useGame(id)
 
@@ -21,4 +21,4 @@ const Game = () => {
   return renderBody
 }
 
-export default Game
+export default GameController

@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import AppTitle from './AppTitle'
+import { colors } from '../theme'
 
 const StyledHeader = styled.header`
   flex: 0;
   height: 100px;
-  background-color: #001022;
+  background-color: ${colors.gameBlue};
   padding: 0px 28px;
 `
 
