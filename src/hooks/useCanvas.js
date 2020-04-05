@@ -27,8 +27,9 @@ const useCanvas = () => {
     const ratio = devicePixelRatio / backingStoreRatio
 
     resizeObserver.current = new ResizeObserver(entries => {
-      const { top, left, width, height } = entries[0].contentRect
+      const { width, height } = entries[0].contentRect
       const { current } = canvasRef
+      const { top, left } = current.getBoundingClientRect()
 
       current.width = width * ratio
       current.height = height * ratio
