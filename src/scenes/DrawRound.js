@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { css } from 'emotion'
 import styled from '@emotion/styled'
-import { faPencilAlt, faEraser } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faEraser, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { colors } from '../theme'
 import AppBody from '../components/AppBody'
 import Canvas from '../components/Canvas'
@@ -23,6 +23,7 @@ const StyledCanvasDiv = styled.div`
 const DrawRound = ({ phrase, onSend }) => {
   const [ canvasNode, setCanvasNode ] = useState(null)
   const [ isAdditionMode, setIsAdditionMode ] = useState(true)
+  const [ penSize, setPenSize ] = useState(4)
 
   return (
     <AppBody
@@ -61,12 +62,24 @@ const DrawRound = ({ phrase, onSend }) => {
           margin-bottom: 10px;
         `}
       >
-        <CanvasTool isActive={isAdditionMode} icon={faPencilAlt} onClick={() => setIsAdditionMode(true)} />
-        <CanvasTool isActive={!isAdditionMode} icon={faEraser} onClick={() => setIsAdditionMode(false)} />
+        <CanvasTool size="2x" isActive={isAdditionMode} icon={faPencilAlt} onClick={() => setIsAdditionMode(true)} />
+        <CanvasTool size="2x" isActive={!isAdditionMode} icon={faEraser} onClick={() => setIsAdditionMode(false)} />
+
+        <div
+          className={css`
+            display: flex;
+            align-items: left;
+            margin-left: 30px;
+          `}
+        >
+          <CanvasTool size="1x" isActive={penSize === 2} icon={faCircle} onClick={() => setPenSize(2)} />
+          <CanvasTool size="2x" isActive={penSize === 4} icon={faCircle} onClick={() => setPenSize(4)} />
+          <CanvasTool size="3x" isActive={penSize === 8} icon={faCircle} onClick={() => setPenSize(8)} />
+        </div>
       </div>
 
       <StyledCanvasDiv>
-        <Canvas color={isAdditionMode ? colors.gameAquaDark : colors.white} onDraw={setCanvasNode} />
+        <Canvas lineWidth={penSize} color={isAdditionMode ? colors.gameAquaDark : colors.white} onDraw={setCanvasNode} />
       </StyledCanvasDiv>
 
       <Prompt

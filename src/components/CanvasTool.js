@@ -28,14 +28,18 @@ const StyledButton = styled.button(props => `
   border-width: 3px;
   border-style: solid;
   border-radius: 6px;
-  padding: 12px;
   margin-right: 10px;
+  height: 55px;
+  width: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `)
 
-const CanvasTool = ({ isActive, icon, onClick }) => {
+const CanvasTool = ({ isActive, size, icon, onClick }) => {
   return (
     <StyledButton activeState={isActive ? 'active' : 'inactive'} onClick={onClick}>
-      <FontAwesomeIcon size="2x" icon={icon} />
+      <FontAwesomeIcon size={size} icon={icon} />
     </StyledButton>
   )
 }

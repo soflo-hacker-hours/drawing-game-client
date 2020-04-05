@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { css } from 'emotion'
 import useCanvas from '../hooks/useCanvas'
 
-const Canvas = ({ color, onDraw }) => {
+const Canvas = ({ color, onDraw, lineWidth }) => {
   const { context, top, left, resizeRef, canvasRef } = useCanvas()
   const [ isPainting, setIsPainting ] = useState(false)
 
   if (context) {
-    context.lineWidth = 4
+    context.lineWidth = lineWidth
     context.lineJoin = 'round'
     context.lineCap = 'round'
     context.strokeStyle = color
     context.fillStyle = color
     context.shadowColor = color
-    context.shadowBlur = 4
+    context.shadowBlur = lineWidth + 1
   }
 
   return (
@@ -30,7 +30,7 @@ const Canvas = ({ color, onDraw }) => {
           const { clientX, clientY, target } = e
 
           context.beginPath()
-          context.arc(clientX - left, clientY - top, 2.5, 0, 2 * Math.PI, false)
+          context.arc(clientX - left, clientY - top, lineWidth / 2, 0, 2 * Math.PI, false)
           context.fill()
           context.closePath()
         }}
