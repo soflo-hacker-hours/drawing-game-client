@@ -29,7 +29,7 @@ const TextRound = ({ imageSrc, onSend }) => {
         max-height: 100%;
       `} src={imageSrc} />
 
-      <TextInput size="large" value={phrase} onChange={e => setPhrase(e.target.value)} />
+      <TextInput placeholder="Enter your guess here" size="large" value={phrase} onChange={e => setPhrase(e.target.value)} />
 
       <Button disabled={!phrase} className={css`
         margin-top: 30px;

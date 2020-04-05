@@ -6,7 +6,7 @@ import { colors } from '../theme'
 const StyledHeader = styled.header`
   flex: 0;
   height: 100px;
-  background-color: ${colors.gameBlue};
+  background-color: ${colors.gameAquaDark};
   padding: 0px 28px;
 `
 
