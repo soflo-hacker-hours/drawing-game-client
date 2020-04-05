@@ -23,15 +23,15 @@ else
   STAGE=$1
 fi
 
-# ensure a build directory is ready to accept files
-mkdir -p build
+# ensure a dist directory is ready to accept files
+mkdir -p dist
 
-FIRST="sam package --s3-bucket $PACKAGEBUCKET --template-file ./cloudformation/deploy.yaml --output-template-file ./build/deployed$STAGE.yaml"
+FIRST="sam package --s3-bucket $PACKAGEBUCKET --template-file ./cloudformation/deploy.yaml --output-template-file ./dist/deployed$STAGE.yaml"
 
-SECOND="sam deploy --template-file ./build/deployed$STAGE.yaml --stack-name $DRAWINGGAMESITE$STAGE --capabilities CAPABILITY_IAM --parameter-overrides Stage=$STAGE UniqueName=$DRAWINGGAMESITE"
+SECOND="sam deploy --template-file ./dist/deployed$STAGE.yaml --stack-name $DRAWINGGAMESITE$STAGE --capabilities CAPABILITY_IAM --parameter-overrides Stage=$STAGE UniqueName=$DRAWINGGAMESITE"
 
 THIRD="python3 UpdateWeb.py $STAGE && `date -Iseconds` > updateweb.txt"
 
-## TODO only run web update if updateweb.txt is newer than random frontend build file
+## TODO only run web update if updateweb.txt is newer than random frontend dist file
 
 $FIRST && $SECOND && $THIRD
