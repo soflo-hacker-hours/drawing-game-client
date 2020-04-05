@@ -6,14 +6,16 @@ import Avatar from './Avatar'
 import Button from './Button'
 import PortraitFrame from './PortraitFrame'
 import { colors } from '../theme'
-import harold from '../assets/harold.png'
-import danny from '../assets/danny.png'
-import ethan from '../assets/ethan.png'
-import joel from '../assets/joel.png'
-import kanye from '../assets/kanye.png'
-import sam from '../assets/sam.png'
-import steve from '../assets/steve.png'
-import hillary from '../assets/hillary.png'
+import {
+  harold,
+  danny,
+  ethan,
+  joel,
+  kanye,
+  sam,
+  steve,
+  hillary,
+} from '../assets'
 
 const StyledContainerDiv = styled.div`
   padding: 20px;

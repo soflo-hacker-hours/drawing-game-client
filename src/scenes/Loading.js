@@ -1,8 +1,10 @@
 import React from 'react'
 import { css } from 'emotion'
 import AppBody from '../components/AppBody'
+import Prompt from '../components/Prompt'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { colors } from '../theme'
 
 const LoadingScene = () => {
   return (
@@ -11,16 +13,15 @@ const LoadingScene = () => {
       align-items: center;
       justify-content: center;
       flex-direction: column;
-
-      p {
-        font-size: 28px;
-        color: #228DFF;
-        text-shadow: 0px 0px 3px #88DFFF;
-        margin-bottom: 20px;
-      }
     `}>
-      <p>hold on to your butts</p>
-      <FontAwesomeIcon icon={faSpinner} spin size="5x" color="#88DFFF" />
+      <Prompt
+        className={css`
+          margin-bottom: 20px;
+        `}
+      >
+        hold on to your butts
+      </Prompt>
+      <FontAwesomeIcon icon={faSpinner} spin size="5x" color={colors.gameAqua} />
     </AppBody>
   )
 }
