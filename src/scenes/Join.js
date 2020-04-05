@@ -4,6 +4,7 @@ import AppBody from '../components/AppBody'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
 import Prompt from '../components/Prompt'
+import AvatarPicker from '../components/AvatarPicker'
 
 const Join = ({ onJoin }) => {
   const [ name, setName ] = useState(name)
@@ -23,6 +24,12 @@ const Join = ({ onJoin }) => {
       p + p {
         margin-top: -20px;
       }
+
+      .avatar-container {
+        margin-top: 30px;
+        max-width: 420px;
+        width: 100%;
+      }
     `}>
         <Prompt>You're almost ready to join the game!</Prompt>
         <Prompt>Just type your name and choose your avatar.</Prompt>
@@ -33,6 +40,9 @@ const Join = ({ onJoin }) => {
           placeholder="Enter your name"
           size="large"
         />
+        <div className="avatar-container">
+          <AvatarPicker />
+        </div>
         <Button
           className={css`
             margin-top: 30px;
