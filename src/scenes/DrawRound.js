@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { css } from 'emotion'
 import styled from '@emotion/styled'
+import { faPencilAlt, faEraser } from '@fortawesome/free-solid-svg-icons'
 import { colors } from '../theme'
 import AppBody from '../components/AppBody'
 import Canvas from '../components/Canvas'
 import Prompt from '../components/Prompt'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
+import CanvasTool from '../components/CanvasTool'
 
 const StyledCanvasDiv = styled.div`
   border: 8px solid ${colors.gameAqua};
@@ -20,6 +22,7 @@ const StyledCanvasDiv = styled.div`
 
 const DrawRound = ({ phrase, onSend }) => {
   const [ canvasNode, setCanvasNode ] = useState(null)
+  const [ isAdditionMode, setIsAdditionMode ] = useState(true)
 
   return (
     <AppBody
@@ -51,8 +54,19 @@ const DrawRound = ({ phrase, onSend }) => {
         onChange={() => {}}
       />
 
+      <div
+        className={css`
+          display: flex;
+          align-items: left;
+          margin-bottom: 10px;
+        `}
+      >
+        <CanvasTool isActive={isAdditionMode} icon={faPencilAlt} onClick={() => setIsAdditionMode(true)} />
+        <CanvasTool isActive={!isAdditionMode} icon={faEraser} onClick={() => setIsAdditionMode(false)} />
+      </div>
+
       <StyledCanvasDiv>
-        <Canvas onDraw={setCanvasNode} />
+        <Canvas color={isAdditionMode ? colors.gameAquaDark : colors.white} onDraw={setCanvasNode} />
       </StyledCanvasDiv>
 
       <Prompt

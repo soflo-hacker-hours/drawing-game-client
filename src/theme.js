@@ -9,6 +9,7 @@ const colors = {
   gameRed: '#ff6150',
   gray: '#5f5f5f',
   lightGray: '#9f9f9f',
+  offWhite: '#f0f0f0',
   white: '#ffffff',
   black: '#000000',
 }
