@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import Avatar from './Avatar'
 import Button from './Button'
+import PortraitFrame from './PortraitFrame'
 import { colors } from '../theme'
 import harold from '../assets/harold.png'
 import danny from '../assets/danny.png'
@@ -21,17 +22,6 @@ const StyledContainerDiv = styled.div`
   justify-content: space-between;
   max-width: 100%;
 `
-
-const StyledDiv = styled.div(props => `
-  width: ${props.width}px;
-  height: ${props.height}px;
-  background-color: #f0f0f0;
-  overflow: hidden;
-  border: 5px solid ${colors.gameAqua};
-  border-radius: 12px;
-  padding-top: ${props.top}px;
-  box-sizing: content-box;
-`)
 
 const StyledUl = styled.ul`
   list-style: none;
@@ -69,7 +59,7 @@ const AvatarPicker = ({ disabledIndices, onSelect }) => {
       >
         <FontAwesomeIcon icon={faCaretLeft} />
       </Button>
-      <StyledDiv top={20} width={width} height={height}>
+      <PortraitFrame top={20} width={width} height={height} color={colors.gameAqua}>
         <StyledUl style={{ width: width * avatars.length, transform: `translateX(-${currentIndex * width}px)` }}>
           {avatars.map((src, i) => (
             <StyledLi key={`src_${i}`}>
@@ -77,7 +67,7 @@ const AvatarPicker = ({ disabledIndices, onSelect }) => {
             </StyledLi>
           ))}
         </StyledUl>
-      </StyledDiv>
+      </PortraitFrame>
       <Button
         disabled={currentIndex === avatars.length - 1}
         size="large"

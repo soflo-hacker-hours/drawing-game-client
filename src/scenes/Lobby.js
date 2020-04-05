@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { css } from 'emotion'
 import AppBody from '../components/AppBody'
 
 const Lobby = () => {
   return (
-    <AppBody></AppBody>
+    <AppBody className={css`
+
+    `}>
+      
+    </AppBody>
   )
 }
 
