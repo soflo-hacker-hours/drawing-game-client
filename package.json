@@ -33,6 +33,7 @@
   "scripts": {
     "serve": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "storybook": "start-storybook -p 9001 -s ./src"
+    "storybook": "start-storybook -p 9001 -s ./src",
+    "buildStorybook": "build-storybook -s ./src"
   }
 }
