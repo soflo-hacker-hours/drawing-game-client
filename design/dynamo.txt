@@ -1,0 +1,120 @@
+Partition Key: "PK"
+Sort Key: "SK"
+
+PK will always be room id (random UUID4)
+
+(UUDI4,UUID4) indicates player info. SK is player's cookie UUID.
+Attributes:
+"Expires". When the cookie expires.
+"Order". Join order. 0 implies owner.
+"Name". Player name. (may be blank until name is submitted)
+
+(UUID4,"S") indicates game state.
+Attributes:
+"Status". Enum of "Lobby", "RoundEven", "RoundOdd", "EndEven", "EndOdd", "Over"
+"Players". Number of players in game.
+"Round". Round number. Starts at 1, may be blank (during lobby / over).
+
+(UUID4,"{ROUND}_{UUID4}_{UUID4}"). Given the round, player's thread contains player's submission.
+Attributes:
+"Name". Player name.
+"Data". Submitted data.
+
+
+
+Example.
+Room ID = G
+Player Cookies = A, B, C
+
+Player A connects to room G.
+(G,A)
+Expires = sometime
+Order = 0
+(G,"S")
+Status = Lobby
+Players = 0
+
+Player B submits name to room G.
+(G,B)
+Expires = sometime
+Order = 1
+Name = "B"
+(G,"S")
+Status = Lobby
+Players = 1
+
+Player C submits name to room G.
+(G,C)
+Expires = sometime
+Order = 2
+Name = "C"
+(G,"S")
+Status = Lobby
+Players = 2
+
+Player A submits name to room G.
+(G,A)
+Expires = sometime
+Order = 0
+Name = "A"
+(G,"S")
+Status = RoundOdd
+Players = 3
+Round = 1
+
+Player A submits text.
+(G,1_A_A)
+Name = "A"
+Data = "some phrase"
+
+Player B submits text.
+(G,1_B_B)
+Name = "B"
+Data = "some phrase"
+
+Player C submits text.
+(G,1_C_C)
+Name = "C"
+Data = "some phrase"
+(G,"S")
+Status = RoundEven
+Players = 3
+Round = 2
+
+Player A submits image.
+(G,2_C_A)
+Name = "A"
+Data = "base64"
+
+Player B submits image.
+(G,2_A_B)
+Name = "B"
+Data = "base64"
+
+Player C submits image.
+(G,2_B_C)
+Name = "C"
+Data = "base64"
+(G,"S")
+Status = EndOdd
+Players = 3
+Round = 3
+
+Player A submits text.
+(G,3_B_A)
+Name = "A"
+Data = "some phrase"
+
+Player B submits text.
+(G,3_C_B)
+Name = "B"
+Data = "some phrase"
+
+Player C submits text.
+(G,3_A_C)
+Name = "C"
+Data = "some phrase"
+(G,"S")
+Status = Over
+Players = 3
+Round = 3
