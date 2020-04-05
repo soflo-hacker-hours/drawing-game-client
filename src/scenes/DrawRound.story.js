@@ -5,6 +5,6 @@ export default { title: 'Scenes/Draw Round' }
 
 export const Default = () => (
   <div style={{ height: '100vh' }}>
-    <DrawRound phrase="The brown fox jumps over the lazy dog" onSend={() => {}} />
+    <DrawRound phrase="hold on to your butts" onSend={() => {}} />
   </div>
 )

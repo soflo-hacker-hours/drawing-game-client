@@ -31,10 +31,14 @@ const StyledInput = styled.input(props => `
     border-color: ${colors.gameAqua};
     color: ${colors.gameAqua};
   }
+
+  &::selection {
+    background-color: ${colors.gameAquaLight};
+  }
 `)
 
 const TextInput = ({ value, size, ...props }) => {
-  return <StyledInput size={size} value={value} type="text" onChange={() => {}} {...props} />
+  return <StyledInput spellCheck={false} size={size} value={value} type="text" onChange={() => {}} {...props} />
 }
 
 TextInput.propTypes = {

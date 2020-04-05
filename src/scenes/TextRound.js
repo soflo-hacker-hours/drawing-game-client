@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { css } from 'emotion'
+import { colors } from '../theme'
 import AppBody from '../components/AppBody'
 import Prompt from '../components/Prompt'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
+import PortraitFrame from '../components/PortraitFrame'
 
 const TextRound = ({ imageSrc, onSend }) => {
   const [ phrase, setPhrase ] = useState('')
@@ -22,12 +24,23 @@ const TextRound = ({ imageSrc, onSend }) => {
       >
         Guess the phrase!
       </Prompt>
-      <img className={css`
-        display: block;
-        margin-bottom: 30px;
-        height: 40%;
-        max-height: 100%;
-      `} src={imageSrc} />
+      <div
+        className={css`
+          border: 3px solid ${colors.gameAqua};
+          border-radius: 6px;
+          height: 40%;
+          max-height: 100%;
+          margin-bottom: 30px;
+        `}
+      >
+        <img
+          className={css`
+            height: 100%;
+            display: block;
+          `}
+          src={imageSrc}
+        />
+      </div>
 
       <TextInput placeholder="Enter your guess here" size="large" value={phrase} onChange={e => setPhrase(e.target.value)} />
 

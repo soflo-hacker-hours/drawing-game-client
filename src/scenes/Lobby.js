@@ -9,6 +9,7 @@ import PortraitFrame from '../components/PortraitFrame'
 import Prompt from '../components/Prompt'
 import Avatar from '../components/Avatar'
 import Button from '../components/Button'
+import WaitingMessage from '../components/WaitingMessage'
 import assets from '../assets'
 import { colors } from '../theme'
 
@@ -29,14 +30,9 @@ const Lobby = ({ players, gameCode, isHost }) => {
       justify-content: center;
       align-items: center;
     `}>
-      <div className={css`
-        display: flex;
-      `}>
-        <Prompt>Waiting on other players...</Prompt>
-        <FontAwesomeIcon  className={css`
-          margin-left: 20px;
-        `} icon={faSpinner} spin size="2x" color={colors.gameAqua} />
-      </div>
+
+      <WaitingMessage />
+
       <Prompt
         className={css`
           margin-bottom: 30px;
@@ -46,6 +42,7 @@ const Lobby = ({ players, gameCode, isHost }) => {
       >
         Share game code: <span style={{userSelect: 'all'}}>{gameCode}</span>
       </Prompt>
+
       <StyledUl>
         {players.map(player => (
           <StyledLi key={player.name}>
@@ -64,11 +61,13 @@ const Lobby = ({ players, gameCode, isHost }) => {
           </StyledLi>
         ))}
       </StyledUl>
+
       {!isHost ? null : (
         <Button className={css`
           margin-top: 30px;
         `}>Start Game</Button>
       )}
+
     </AppBody>
   )
 }
