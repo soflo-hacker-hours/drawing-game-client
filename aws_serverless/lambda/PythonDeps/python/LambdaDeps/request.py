@@ -37,7 +37,7 @@ def get_query(event):
     except:
         return {}
 
-def get_session(event, table, fail_entry={}):
+def get_session(event, table, room, fail_entry={}):
     entry = None
     valid = deep_get(event, "headers", "Cookie")
     if valid:
@@ -49,8 +49,8 @@ def get_session(event, table, fail_entry={}):
         cookie = cookies['Session'].value
         # Look up cookie in database
         entry = table.get_item(Key={
-            'PK': cookie,
-            'SK': 'Cookie'
+            'PK': room,
+            'SK': cookie
         })
     valid = deep_get(entry, 'Item')
     if valid:
@@ -58,8 +58,8 @@ def get_session(event, table, fail_entry={}):
         if now <= valid['Expires']:
             # renew the expiration
             table.update_item(Key={
-                'PK': cookie,
-                'SK': 'Cookie'
+                'PK': room,
+                'SK': cookie
             }, AttributeUpdates={
                 'Expires': {'Value': add_expires_iso() }
             })
