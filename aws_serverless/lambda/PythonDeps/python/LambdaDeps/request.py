@@ -47,12 +47,8 @@ def get_session(event, table, room, fail_entry={}):
         if 'Session' not in cookies:
             return fail_entry
         cookie = cookies['Session'].value
-        # Look up cookie in database
-        entry = table.get_item(Key={
-            'PK': room,
-            'SK': cookie
-        })
-    valid = deep_get(entry, 'Item')
+        # Look up cookie in room's data
+        valid = room.__get__(cookie, False)
     if valid:
         now = now_iso()
         if now <= valid['Expires']:

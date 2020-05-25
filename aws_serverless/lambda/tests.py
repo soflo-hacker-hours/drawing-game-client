@@ -19,9 +19,13 @@ class DynamoStub(object):
         # Assume responses are provided in correct call order, return next.
         return self.responses.pop(0)
 
-    def get(self, Item):
+    def get_item(self, Item):
         # Assume responses are provided in correct call order, return next.
         return self.responses.pop(0)
+
+    def put_item(self, Item):
+        # Placeholder
+        return True
 
 def call(responses,cookie=None,room=None,event=None):
     if event is None:
@@ -44,24 +48,26 @@ class Test(unittest.TestCase):
 
     def _everytime(self, response):
         self.assertFalse(response['isBase64Encoded'])
-        self.assertIn('Cookie', response['headers'])
-        cookie = response['headers']['Cookie']
-        body = json.parse(response['body'])
+        self.assertIn('set-cookie', response['headers'])
+        body = json.loads(response['body'])
         return body
 
     def testNoRoom(self):
         response = call(responses=[],event={})
         self.assertFalse(response['isBase64Encoded'])
-        self.assertEqual(response['statusCode'], 404)
+        self.assertEqual(response['statusCode'], 400)
         self.assertEqual(response['headers'], {})
         self.assertIn('room', response['body'])
 
     def testHostNewRoomNoCookie(self):
-        responses=[]
+        responses=[
+          False, # No room data
+        ]
+
         response = call(responses=responses,room='NewRoom')
         body = self._everytime(response)
         self.assertEqual(response['statusCode'], 200)
-        body = json.parse(response['body'])
+        body = json.loads(response['body'])
         self.assertEqual(body, {'players': []})
 
 if __name__ == '__main__':
