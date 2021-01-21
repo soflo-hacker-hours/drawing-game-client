@@ -12,7 +12,7 @@
     "babel-loader": "^8.1.0",
     "emotion": "^10.0.27",
     "html-loader": "^1.0.0",
-    "immer": "^6.0.2",
+    "immer": "^8.0.1",
     "query-string": "^6.11.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
